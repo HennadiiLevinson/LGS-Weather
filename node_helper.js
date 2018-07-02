@@ -1,5 +1,5 @@
 /* Magic Mirror
-    * Module: MMM-NOAA
+    * Module: LGS-Weather
     *
     * By Cowboysdude
     * 

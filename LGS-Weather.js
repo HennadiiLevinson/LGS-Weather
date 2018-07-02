@@ -1,5 +1,5 @@
 /* Magic Mirror
- * Module: MMM-NOAA
+ * Module: LGS-Weather
  * By cowboysdude and tbbear 
         modified by barnosch
  */
@@ -8,7 +8,7 @@ var l = 1;
 var loco = "";
 "use strict";
 
-Module.register("MMM-NOAA", {
+Module.register("LGS-Weather", {
 
     // Module config defaults.
     defaults: {
@@ -78,7 +78,7 @@ Module.register("MMM-NOAA", {
 
 
     getStyles: function() {
-        return ["MMM-NOAA.css", "weather-icons.css"];
+        return ["LGS-Weather.css", "weather-icons.css"];
     },
     getScripts: function() {
         return ["moment.js", "fontawesome-all.js"];
@@ -337,12 +337,12 @@ Module.register("MMM-NOAA", {
 	var SDSymbol = document.createElement("img");
      
 	SUSymbol.id = "x";
-	SUSymbol.src = "modules/MMM-NOAA/images/icons/Sunrise.png";
+	SUSymbol.src = "modules/LGS-Weather/images/icons/Sunrise.png";
 	SUSymbol.width = 30;
 	SUSymbol.height = 30;
 
 	SDSymbol.id = "y";
-	SDSymbol.src = "modules/MMM-NOAA/images/icons/Sunset.png";
+	SDSymbol.src = "modules/LGS-Weather/images/icons/Sunset.png";
 	SDSymbol.width = 30;
 	SDSymbol.height = 30;
 
@@ -419,7 +419,7 @@ Module.register("MMM-NOAA", {
         var curCon = document.createElement("div");
         curCon.classList.add("small", "bright", "img");
         curCon.setAttribute('style', 'line-height: 105%;');
-    	curCon.innerHTML = (n < 22 && n > 6) ? current.weather + "<img class = 'icon2' src='modules/MMM-NOAA/images/" + current.icon + ".png'>" : current.weather + "<img class = 'icon2' src='modules/MMM-NOAA/images/nt_" + current.icon + ".png'>";
+    	curCon.innerHTML = (n < 22 && n > 6) ? current.weather + "<img class = 'icon2' src='modules/LGS-Weather/images/" + current.icon + ".png'>" : current.weather + "<img class = 'icon2' src='modules/LGS-Weather/images/nt_" + current.icon + ".png'>";
         wrapper.appendChild(curCon);
 
         var cur = document.createElement("div");
@@ -460,7 +460,7 @@ Module.register("MMM-NOAA", {
         var second = document.createElement("th");
         var tempSymbol = document.createElement("img");
 		
-	tempSymbol.src = "modules/MMM-NOAA/images/icons/Regen.png";
+	tempSymbol.src = "modules/LGS-Weather/images/icons/Regen.png";
 	tempSymbol.width = 30;
 	tempSymbol.height = 30;
         second.appendChild(tempSymbol);
@@ -469,7 +469,7 @@ Module.register("MMM-NOAA", {
         var third = document.createElement("th");
         var currentHSymbol = document.createElement("img");
 
-	currentHSymbol.src = "modules/MMM-NOAA/images/icons/Feuchtigkeit.png";
+	currentHSymbol.src = "modules/LGS-Weather/images/icons/Feuchtigkeit.png";
 	currentHSymbol.width = 30;
 	currentHSymbol.height = 30;
         third.appendChild(currentHSymbol);
@@ -478,7 +478,7 @@ Module.register("MMM-NOAA", {
         var fourth = document.createElement("th");
         var currentWindSymbol = document.createElement("img");
 	
-        currentWindSymbol.src = "modules/MMM-NOAA/images/icons/Windgeschiwndigkeit.png";
+        currentWindSymbol.src = "modules/LGS-Weather/images/icons/Windgeschiwndigkeit.png";
 	currentWindSymbol.width = 30;
 	currentWindSymbol.height = 30;
         fourth.appendChild(currentWindSymbol);
@@ -554,7 +554,7 @@ Module.register("MMM-NOAA", {
         if (done >= str1 && done <= str2){
 		uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");	
 	} else {
-		uvSymbol.innerHTML = "<img class='IMG' src='modules/MMM-NOAA/images/smallmoon.png'>";	
+		uvSymbol.innerHTML = "<img class='IMG' src='modules/LGS-Weather/images/smallmoon.png'>";	
 	}
         uvcol.appendChild(uvSymbol);
         otherRow.appendChild(uvcol);
@@ -634,7 +634,7 @@ Module.register("MMM-NOAA", {
             var fore = document.createElement("td");
 
             fore.setAttribute("colspan", "1");
-            fore.innerHTML = "<img src='modules/MMM-NOAA/images/" + noaa.icon + ".png' height='22' width='28'>";
+            fore.innerHTML = "<img src='modules/LGS-Weather/images/" + noaa.icon + ".png' height='22' width='28'>";
             foreRow.appendChild(fore);
             ForecastTable.appendChild(foreRow);
         }

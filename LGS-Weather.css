@@ -1,26 +1,26 @@
-.MMM-NOAA {
+.LGS-Weather {
      width: 200px;
 }
- .MMM-NOAA .table td{
+ .LGS-Weather .table td{
      text-align:center;
      table-layout:fixed;
 }
- .MMM-NOAA tr {
+ .LGS-Weather tr {
      height: 29px;
 	 text-align:center;
      table-layout:fixed;
 }
- .MMM-NOAA th {
+ .LGS-Weather th {
      line-height: 20%;
      padding-top: 9px;
 }
-.MMM-NOAA .blink_tr {
+.LGS-Weather .blink_tr {
   animation: blinker 2s linear infinite;
 }
 @keyframes blinker {  
   60% { opacity: 0; }
 }
- .MMM-NOAA .wheading {
+ .LGS-Weather .wheading {
      background-color: #b97e11;
      text-align:center;
      color: rgba(0,0,0,0.6);
@@ -30,12 +30,12 @@
      line-height: 110%;
      border-radius: 7px;
 }
-.MMM-NOAA .img {
+.LGS-Weather .img {
 	width: 70px;
 	height: 70px;
 	align-content: center;
 }
- .MMM-NOAA .Forecasttable {
+ .LGS-Weather .Forecasttable {
      float: left;
      clear: left;
      display: inline;
@@ -43,7 +43,7 @@
      margin-right:auto;
      text-align: center;
 }
- .MMM-NOAA .forehead {
+ .LGS-Weather .forehead {
      background-color: #868c88;
      text-align:center;
      color: rgba(0,0,0,0.6);
@@ -53,7 +53,7 @@
      line-height: 110%;
      border-radius: 7px;
 }
- .MMM-NOAA .rheading {
+ .LGS-Weather .rheading {
      background-color: #868c88;
      text-align:center;
      color: rgba(0,0,0,0.6);
@@ -63,31 +63,31 @@
      line-height: 110%;
      border-radius: 7px;
 }
- .MMM-NOAA .font {
+ .LGS-Weather .font {
      font-size: 23px;
 }
-.MMM-NOAA .fontac {
+.LGS-Weather .fontac {
      color:#e4ab5f 
 }
-.MMM-NOAA .fontss{
+.LGS-Weather .fontss{
      color: #e0e29a;
 }
-.MMM-NOAA .fontauw{
+.LGS-Weather .fontauw{
      color:#51c7ca 
 }
-.MMM-NOAA .fontfor {
+.LGS-Weather .fontfor {
      color: #000;
 }
-.MMM-NOAA .IMG {
+.LGS-Weather .IMG {
 	width: 25px;
 	height: 24px;
 }
- .MMM-NOAA .xxsmall {
+ .LGS-Weather .xxsmall {
      font-size: 12px;
      color:#a4c6c5;
      margin: 10px;
 }
-.MMM-NOAA .tempf {
+.LGS-Weather .tempf {
 	color: white;
 	text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
 }

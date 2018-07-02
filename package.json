@@ -4,9 +4,11 @@
   "description": "Weather widget for Magic Mirror with custom temp sensor data",
   "main": "LGS-Weather.js",
   "dependencies": {
+    "electron-rebuild": "^1.7.3",
     "google-translate-api": "^2.0.5",
     "nrf24": "0.0.0-alpha4",
-    "postcss-syntax": "^0.10.0"
+    "postcss-syntax": "^0.10.0",
+    "rf24": "0.0.0"
   },
   "devDependencies": {
     "grunt": "latest",
