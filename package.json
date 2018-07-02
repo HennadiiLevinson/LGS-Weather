@@ -5,6 +5,7 @@
   "main": "LGS-Weather.js",
   "dependencies": {
     "google-translate-api": "^2.0.5",
+    "nrf24": "0.0.0-alpha4",
     "postcss-syntax": "^0.10.0"
   },
   "devDependencies": {
