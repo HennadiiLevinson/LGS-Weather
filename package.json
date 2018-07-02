@@ -1,13 +1,8 @@
 {
-  "name": "mmm-noaa",
+  "name": "lgs-weather",
   "version": "1.0.0",
-  "description": "Weather module using the www.wunderground.com API for the MagicMirror2",
-  "main": "MMM-NOAA.js",
-  "scripts": {
-    "test": "./node_modules/grunt/bin/grunt"
-  },
-  "author": "cowboysdude",
-  "license": "MIT",
+  "description": "Weather widget for Magic Mirror with custom temp sensor data",
+  "main": "LGS-Weather.js",
   "dependencies": {
     "google-translate-api": "^2.0.5",
     "postcss-syntax": "^0.10.0"
@@ -23,12 +18,25 @@
     "stylelint-config-standard": "latest",
     "time-grunt": "latest"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cowboysdude/MMM-NOAA.git"
+    "url": "git+https://github.com/HennadiiLevinson/LGS-Weather.git"
   },
+  "keywords": [
+    "magic",
+    "mirror",
+    "module",
+    "weather",
+    "arduino",
+    "rf24"
+  ],
+  "author": "Hennadii Levinson",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cowboysdude/MMM-NOAA/issues"
+    "url": "https://github.com/HennadiiLevinson/LGS-Weather/issues"
   },
-  "homepage": "https://github.com/cowboysdude/MMM-NOAA#readme"
+  "homepage": "https://github.com/HennadiiLevinson/LGS-Weather#readme"
 }
