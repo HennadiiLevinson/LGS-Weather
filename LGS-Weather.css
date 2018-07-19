@@ -1,9 +1,9 @@
 .LGS-Weather {
-     width: 200px;
+     width: 400px;
 }
  .LGS-Weather .table td{
      text-align:center;
-     table-layout:fixed;
+//     table-layout:fixed;
 }
  .LGS-Weather tr {
      height: 29px;
@@ -21,18 +21,18 @@
   60% { opacity: 0; }
 }
  .LGS-Weather .wheading {
-     background-color: #b97e11;
+     background-color: #000;
      text-align:center;
-     color: rgba(0,0,0,0.6);
-     text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+     color: #fff;    
+     font-family: "Times New Roman", sans-serif;
      padding: 2px;
      font-size: 13px;
      line-height: 110%;
      border-radius: 7px;
 }
 .LGS-Weather .img {
-	width: 70px;
-	height: 70px;
+	//width: 70px;
+	height: 170px;
 	align-content: center;
 }
  .LGS-Weather .Forecasttable {
@@ -44,20 +44,22 @@
      text-align: center;
 }
  .LGS-Weather .forehead {
-     background-color: #868c88;
+     background-color: #000;
      text-align:center;
-     color: rgba(0,0,0,0.6);
+     color: #fff;
      text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+     font-family: "Times New Roman", sans-serif;
      padding: 2px;
      font-size: 13px;
      line-height: 110%;
      border-radius: 7px;
 }
  .LGS-Weather .rheading {
-     background-color: #868c88;
+     background-color: #000;
      text-align:center;
-     color: rgba(0,0,0,0.6);
+     color: #fff;
      text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+     font-family: "Times New Roman", sans-serif;
      padding: 2px;
      font-size: 13px;
      line-height: 110%;
@@ -67,13 +69,13 @@
      font-size: 23px;
 }
 .LGS-Weather .fontac {
-     color:#e4ab5f 
+     color: #fff;
 }
 .LGS-Weather .fontss{
-     color: #e0e29a;
+     color: #fff;
 }
 .LGS-Weather .fontauw{
-     color:#51c7ca 
+     color: #fff;
 }
 .LGS-Weather .fontfor {
      color: #000;
@@ -83,11 +85,24 @@
 	height: 24px;
 }
  .LGS-Weather .xxsmall {
-     font-size: 12px;
+     font-size: 50px;
      color:#a4c6c5;
      margin: 10px;
 }
 .LGS-Weather .tempf {
 	color: white;
 	text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+.weather-header{
+     position: relative;
+     text-align: center;
+     padding-bottom: 20px;
+}
+.weather-temperature{
+     position: absolute;
+     left: 22%;
+     bottom: 23%;
+}
+.weather-text{
+     text-align: center;
 }

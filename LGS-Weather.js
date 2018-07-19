@@ -12,10 +12,10 @@ Module.register("LGS-Weather", {
 
     // Module config defaults.
     defaults: {
-        updateInterval: 70 * 60 * 1000, // every 10 minutes
-        animationSpeed: 0,
+        updateInterval: 100 * 60 * 1000, // every 1 minutes
+        animationSpeed: 10,
         initialLoadDelay: 8000,
-        rotateInterval: 20 * 1000,
+        rotateInterval: 2000 * 1000,
         maxWidth: "100%",
         apiKey: "",
         airKey: "",
@@ -78,10 +78,18 @@ Module.register("LGS-Weather", {
 
 
     getStyles: function() {
-        return ["LGS-Weather.css", "weather-icons.css"];
+        return [
+		"LGS-Weather.css", 
+		"weather-icons.css",
+		//"https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+		];
     },
     getScripts: function() {
-        return ["moment.js", "fontawesome-all.js"];
+        return [
+		"moment.js", 
+		"fontawesome-all.js",
+		//"https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"
+		];
     },
 
     // Define start sequence.
@@ -130,17 +138,6 @@ Module.register("LGS-Weather", {
         this.air = data.data.current.pollution;
     },
 
-  /*  processAlert: function(data) {
-	if (this.config.lang == "en"){
-		this.alert = data;
-	} else {
-	this.alert = data;
-	this.amess[c] = this.alert;
-	c = c + 1;	
-	}
-    },
-	
-    */
 	
     scheduleCarousel: function() {
         this.rotateInterval = setInterval(() => {
@@ -167,15 +164,7 @@ Module.register("LGS-Weather", {
         if (notification === "SRSS_RESULTS") {
             this.processSRSS(payload);
         }
-        if (notification === "AIR_RESULTS") {
-            this.processAIR(payload);
-        }
-        if (notification === "ALERT_RESULTS") {
-            this.processAlert(payload);
-        }
-        if (notification === "MAP_RESULTS") {
-            this.processMap(payload);
-        }
+        
         if (this.rotateInterval == null) {
                 this.scheduleCarousel();
         }
@@ -195,81 +184,13 @@ Module.register("LGS-Weather", {
             this.show(100);
             this.updateDom(300);
         }  else if (notification === 'NEXT_NOAA') {
-            this.doact();
+            //this.doact();
 	}
     },
 
-    getTime: function() {
-        var format = config.timeFormat;
-        var location = config.language;
-        var langFile = this.config.langFile;
 
-        var time = new Date();
-        if (format === 12) {
-            time = time.toLocaleString(langFile[location], {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true
-            });
-        } else {
-            time = time.toLocaleString(langFile[location], {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: false
-            });
-        }
-        return time;
-    },
+    
 
-    secondsToString: function(seconds) {
-        var srss = this.srss.day_length;
-        var numhours = Math.floor((srss % 86400) / 3600);
-        var numminutes = Math.floor(((srss % 86400) % 3600) / 60);
-        if (numminutes > 0) {
-            return numhours + ":" + numminutes;
-        } else {
-            return numhours + this.translate(" hours ");
-        }
-    },
-
-    doact: function() {
-		l = l + 1;
-		if (l == 4) {l = 1};
-		var lang = this.config.langTrans[config.language];
-
-		switch (l) {
-		case 1:
-			loco = this.config.loco1;
-			this.config.pws = this.config.pws1;
-			break;
-		case 2:
-			loco = this.config.loco2;
-			this.config.pws = this.config.pws2;
-			break;
-		case 3:
-			loco = this.config.loco3;
-			this.config.pws = this.config.pws3;
-			break;
-		}
-		this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
-	    this.sendSocketNotification("CONFIG", this.config);
-		this.getNOAA();
-		this.updateDom(700);	
-	},
-	
-		secondsToString: function(seconds) {
-	    var seconds = this.srss.day_length;
-		
-		var date = new Date(seconds * 1000);
-		var hh = date.getUTCHours();
-		var mm = date.getUTCMinutes();
-		var ss = date.getSeconds();
-		if (hh < 10) {hh = "0"+hh;}
-		if (mm < 10) {mm = "0"+mm;}
-		if (ss < 10) {ss = "0"+ss;}
-		var t = hh+":"+mm;
-		  return t;
-		    },
     getDomInside: function(){
         	var reading = this.lastReading;
 		
@@ -370,6 +291,9 @@ Module.register("LGS-Weather", {
 	var sunrise = config.timeFormat == 12 ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("HH:mm");
 	var sunset = config.timeFormat == 12 ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("HH:mm");
 
+	var convertedTimeSr = parseInt(sunrise);
+	var convertedTimeSs = parseInt(sunset);
+
         var Midrow = document.createElement("tr");
         Midrow.classList.add("xsmall", "bright");
         Midrow.setAttribute('style', 'line-height: 30%;');
@@ -401,59 +325,62 @@ Module.register("LGS-Weather", {
 
         var wrapper = document.createElement("div");
 
-	if (this.config.pws2 != "xxx"){
-		var loc = document.createElement("div");
-		loc.innerHTML = loco;
-		loc.style.cursor = "pointer";
-		loc.setAttribute("align", "left");
-		loc.className = "button";
-		loc.addEventListener("click", () => this.doact());		
-		wrapper.appendChild(loc);
-	}
+	
 
         var current = this.current;
 
         var d = new Date();
         var n = d.getHours();
 
-        var curCon = document.createElement("div");
-        curCon.classList.add("small", "bright", "img");
-        curCon.setAttribute('style', 'line-height: 105%;');
-    	curCon.innerHTML = (n < 22 && n > 6) ? current.weather + "<img class = 'icon2' src='modules/LGS-Weather/images/" + current.icon + ".png'>" : current.weather + "<img class = 'icon2' src='modules/LGS-Weather/images/nt_" + current.icon + ".png'>";
-        wrapper.appendChild(curCon);
+        //var curCon = document.createElement("div");
+    	
+        //wrapper.appendChild(curCon);
 
-        var cur = document.createElement("div");
-        cur.classList.add("large", "bright","tempf");
-        cur.setAttribute('style', 'line-height: 5%;');
-        cur.setAttribute("style", "padding-bottom:20px;");
-			
 	var reading = this.lastReading;
 
-	if (reading){
-		cur.innerHTML = Math.round(reading.temperature) + "&deg;";			
-	}
 
-        wrapper.appendChild(cur);
+        var cur = document.createElement("div");
+
+	cur.classList.add("weather-table");
+	
+	var weatherImage = document.createElement("img");
+	var topTemperature = document.createElement("div");
+	var weatherText = document.createElement("div");
+	
+	weatherText.innerHTML = current.weather;
+
+	weatherText.classList.add("medium");
+	cur.classList.add("weather-header", "bright");
+	
+	topTemperature.classList.add("weather-temperature", "large", "tempf");
+	
+	if (reading){
+		topTemperature.innerHTML = Math.round(reading.temperature) + "&deg;";			
+	}	
+
+
+	weatherImage.classList.add("icon2", "small", "bright", "img");
+	var dayImageSrc = 'modules/LGS-Weather/images/' + current.icon + '.png';
+	var nightImageSrc = 'modules/LGS-Weather/images/nt_' + current.icon + '.png';
+	weatherImage.src = (n < 22 && n > 6) ? dayImageSrc : nightImageSrc;
+
+	cur.appendChild(weatherText);
+	cur.appendChild(weatherImage);
+	cur.appendChild(topTemperature);
+        cur.setAttribute('style', 'line-height: 105%;');
+   	wrapper.appendChild(cur);
 
         var top = document.createElement("div");
 
 	var weatherTable = document.createElement("table");
         weatherTable.classList.add("table");
+	weatherTable.classList.add("weather-table");
 
         weatherTable.appendChild(this.getSuSd());
 
         top.appendChild(weatherTable);
         wrapper.appendChild(top);
 	
- 
-        /*var hRow = document.createElement("tr");
-        var hsecond = document.createElement("th");
-        hsecond.setAttribute("colspan", 4);
-        hsecond.setAttribute("style", "text-align:center");
-        hsecond.classList.add("rheading");
-        hsecond.innerHTML = this.translate("Atmospheric Conditions");
-        hRow.appendChild(hsecond);
-        weatherTable.appendChild(hRow);*/
 
         var forecastRow = document.createElement("tr");
 
@@ -505,104 +432,13 @@ Module.register("LGS-Weather", {
         td5.innerHTML = current.wind_mph;
         TDrow.appendChild(td5);
         weatherTable.appendChild(TDrow);
-/*
-	var xFCRow = document.createElement("tr");
-	   var xjumpy = document.createElement("th");
-	   xjumpy.setAttribute("colspan", 4);
-	   xjumpy.setAttribute("style", "text-align:center");
-	   xjumpy.classList.add("forehead");
-	   xjumpy.innerHTML = this.translate("Forecast");
-	   xFCRow.appendChild(xjumpy);
-	   weatherTable.appendChild(xFCRow);
-        
-        
-        weatherTable.appendChild(this.getDomInside());
 
-        top.appendChild(weatherTable);
-        wrapper.appendChild(top);
-	
-
-       
-
-        var CRow = document.createElement("tr");
-        var ccolumn = document.createElement("th");
-        ccolumn.setAttribute("colspan", 4);
-        ccolumn.classList.add("rheading");
-        ccolumn.innerHTML = this.translate("AQI/UV/Wind");
-        CRow.appendChild(ccolumn);
-        weatherTable.appendChild(CRow);
-
-        var otherRow = document.createElement("tr");
-
-        var airq = document.createElement("th");
-        var aqSymbol = document.createElement("i");
-        aqSymbol.classList.add("wi", "wi-smoke", "font", "fontauw");
-        airq.appendChild(aqSymbol);
-        otherRow.appendChild(airq);
-
-        
-        var time = new Date();
-        var g = time.getHours();
-        var m = time.getMinutes();
-        var fun = g+":"+m;
-        var done = moment(fun, ["h:mm A"]).format("HH:mm"); 
-	var str1 = moment(this.sunrise, ["h:mm A"]).format("HH:mm");
-	var str2 = moment(this.sunset, ["h:mm A"]).format("HH:mm");
-        
-        var uvcol = document.createElement("th");
-        var uvSymbol = document.createElement("i");
-        if (done >= str1 && done <= str2){
-		uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");	
-	} else {
-		uvSymbol.innerHTML = "<img class='IMG' src='modules/LGS-Weather/images/smallmoon.png'>";	
-	}
-        uvcol.appendChild(uvSymbol);
-        otherRow.appendChild(uvcol);
-
-        var windcol = document.createElement("th");
-        var currentWindSymbol = document.createElement("i");
-        currentWindSymbol.classList.add("wi", "wi-strong-wind", "font", "fontauw");
-        windcol.appendChild(currentWindSymbol);
-        otherRow.appendChild(windcol);
-
-        weatherTable.appendChild(otherRow);
-
-        var nextRow = document.createElement("tr");
-        nextRow.classList.add("xsmall", "bright");
-
-        var aqius = this.air.aqius;
-        var aqicol = document.createElement("td");
-        aqicol.innerHTML = aqius == undefined ? "N/A" : aqius;	
-        nextRow.appendChild(aqicol);
-        weatherTable.appendChild(nextRow);
-
-        var uvcol = document.createElement("td");
-        uvcol.innerHTML = (done >= str1 && done <= str2) ? current.UV : this.translate("Night");
-        nextRow.appendChild(uvcol);
-        weatherTable.appendChild(nextRow);
-
-        var wincol = document.createElement("td");
-        wincol.innerHTML = current.wind_mph;
-        nextRow.appendChild(wincol);
-        weatherTable.appendChild(nextRow);
-
-        weatherTable.appendChild(nextRow);
-        wrapper.appendChild(weatherTable);
-*/
         ////// FORECAST ROWS ///////////////////////////////// 
 
         var ForecastTable = document.createElement("table");
         ForecastTable.classList.add("table")
         ForecastTable.setAttribute('style', 'line-height: 20%;');
 	ForecastTable.setAttribute("style", "padding-top: 30px;");
-
-        /*var FCRow = document.createElement("tr");
-        var jumpy = document.createElement("th");
-        jumpy.setAttribute("colspan", 4);
-        jumpy.classList.add("rheading");
-        jumpy.innerHTML = this.translate("4 Day Forecast");
-        FCRow.appendChild(jumpy);
-        ForecastTable.appendChild(FCRow);*/
 
         var d = new Date();
         var weekday = new Array(7);
@@ -653,90 +489,7 @@ Module.register("LGS-Weather", {
 
         wrapper.appendChild(ForecastTable);
 
-        //////////////////END FORECAST ROWS///////////////////////
- 
- /*  if (this.config.lang == "en" && this.alert.length > 0 ){
-  	 var ArrayNumber = this.alert.length;
-           
-  	  var ATable = document.createElement("table");
-	        ATable.classList.add("table")
-	        ATable.setAttribute('style', 'line-height: 20%;');
-	        var aFCRow = document.createElement("tr");
-	        var ajumpy = document.createElement("th");
-	        ajumpy.setAttribute("colspan", 4);
-	        ajumpy.setAttribute("style", "text-align:center");
-	        ajumpy.classList.add("wheading","blink_tr");
-			ajumpy.innerHTML = (ArrayNumber > 1) ? this.translate(ArrayNumber +" Weather Warnings") : this.translate("Weather Warning");
-	        aFCRow.appendChild(ajumpy);
-	        ATable.appendChild(aFCRow);
-
-		 var akeys = Object.keys(this.alert);
-			if(akeys.length > 0){
-           	if(this.activeItem >= akeys.length){
-				this.activeItem = 0;
-			}
-         var alert = this.alert[akeys[this.activeItem]];
-         
-			awarn = document.createElement("tr");
-			awarn.classList.add("bright", "xsmall");
-		    awarn.setAttribute("style", "line-height: 170%;");
-	awarn.innerHTML = alert.description +" ~ Expires: " + alert.expires;
-			ATable.appendChild(awarn);
-		}
-		wrapper.appendChild(ATable);
-		
-  } else {
-	var alert = this.amess[0];
-  
-	if (c != 0){			
-			
-		var Alert = [];
-		var Level = [];
-	        var ATable = document.createElement("table");
-	        ATable.classList.add("table")
-	        ATable.setAttribute('style', 'line-height: 20%;');
-	        var aFCRow = document.createElement("tr");
-	        var ajumpy = document.createElement("th");
-	        ajumpy.setAttribute("colspan", 4);
-	        ajumpy.setAttribute("style", "text-align:center");
-	        ajumpy.classList.add("wheading","blink_tr");
-	        ajumpy.innerHTML = this.translate("Weather Warning");
-	        aFCRow.appendChild(ajumpy);
-	        ATable.appendChild(aFCRow);
- 
-		for(var i = 0; i < c; i++){
-			 
-if (alert.desc != 'undefined'|| undefined){
-			var alert = this.amess[i];
-			Alert[i] = document.createElement("tr");
-			Alert[i].classList.add("bright", "xsmall");
-		        Alert[i].setAttribute("style", "line-height: 170%;");
-			Alert[i].innerHTML = "<marquee scrollamount="+"20"+" scrolldelay="+"300"+"><font color=" + this.config.levelTrans[alert.level] +">" + alert.desc + "</marquee><br>";
-			ATable.appendChild(Alert[i]);
-		}
-		wrapper.appendChild(ATable);
-
-	}
-		
-  	
-  }	}  */
-
-	if (config.timeFormat == 12) {
-	        var doutput = moment().format("MM/DD/YYYY");
-        	var tinput = document.lastModified;
-	        var toutput = (moment(tinput.substring(10, 16), 'HH:mm').format('hh:mm a'));
-	} else {
-	        var doutput = moment().format("DD.MM.YYYY");
-        	var tinput = document.lastModified;
-	        var toutput = (moment(tinput.substring(10, 16), 'HH:mm').format('HH:mm'));
-	}
-	/*
-        var mod = document.createElement("div");
-        mod.classList.add("xxsmall", "bright");
-        mod.setAttribute('style', 'line-height: 170%;');
-        mod.innerHTML = "[" + this.translate("Updated") + ": " + doutput + " " + toutput + "]";
-        wrapper.appendChild(mod);
-	*/
+        
         return wrapper;
 
     }, 
