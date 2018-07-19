@@ -1,5 +1,9 @@
+.tb-container{
+	max-width:500px;
+}
+
 .LGS-Weather {
-     width: 400px;
+     width: 200px;
 }
  .LGS-Weather .table td{
      text-align:center;
@@ -30,11 +34,7 @@
      line-height: 110%;
      border-radius: 7px;
 }
-.LGS-Weather .img {
-	//width: 70px;
-	height: 170px;
-	align-content: center;
-}
+
  .LGS-Weather .Forecasttable {
      float: left;
      clear: left;
@@ -100,9 +100,24 @@
 }
 .weather-temperature{
      position: absolute;
-     left: 22%;
+     left: 33%;
      bottom: 23%;
 }
 .weather-text{
      text-align: center;
+}
+.tb-row{	
+     margin-bottom: 30px; 
+}
+
+.icon3 {
+     width:50px; //change little images size here
+     height:50px;
+}
+.icon2 {
+	height: 200px; //change top image size here 
+	align-content: center;
+}
+.text-weather-info {
+	font-size: 30px; //cange text here 
 }
